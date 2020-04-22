@@ -1,4 +1,4 @@
-from code.sql_operator import SqlOperator
+from code.database import SqlOperator
 
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
 

@@ -1,1 +1,1 @@
-from .sql_operator import SqlOperator
+from .database import SqlOperator
