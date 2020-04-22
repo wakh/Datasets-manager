@@ -1,6 +1,4 @@
 import psycopg2
-import csv
-import pandas
 
 
 class SqlOperator:
@@ -89,9 +87,11 @@ class SqlOperator:
 
     # [inclusive lower, exclusive upper)
     # upper date is the more recent date
+    # Use date format MM/DD/YYYY HH:MI:SS AM
     def get_range_date(self, relation, lower_date, upper_date):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM " + relation + " WHERE date >= " + lower_date + "AND date < " + upper_date)
+        cursor.execute("SELECT * FROM " + relation + " WHERE date >= to_timestamp(" + lower_date + ""
+                            ", \'MM/DD/YYYY HH:MI:SS AM\') AND date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\'")
         return cursor.fetchall()
 
     # returns all points in the latitude and longitude
