@@ -9,6 +9,8 @@ class SqlOperator:
     #       [..., Created Date(1), Closed Date(2), ..., Complaint Type(5),
     #       ..., Borough(25), ..., Latitude(38), Longitude(39)] (List)
     # Converted to Schema = ServiceRequests(complaint_type, borough, creation_date, closed_date, latitude, longitude)
+    # Each GET Function will return in the form of a list of tuples depending on how many attributes were selected
+    # They will return all attributes unless specified otherwise
     """
 
     def __init__(self, connection_string):
@@ -129,6 +131,25 @@ class SqlOperator:
                        "ERI.longitude = ServiceRequests.longitude")
         return cursor.fetchall()
 
+    # returns the the sum of the grouped up incidents
+    # returns with tuples in the form of (complaint_type, count(complaint_type))
+    def get_incidents_group_sum(self):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT incident, COUNT(incident) FROM ERI GROUP BY incident")
+        incident_list = cursor.fetchall()
+        cursor.execute("SELECT complaint_type, COUNT(complaint_type) FROM ServiceRequests GROUP BY complaint_type")
+        incident_list.extend(cursor.fetchall())
+        return incident_list
+
+    # returns the most recent of each incident
+    # returns with tuples in the form of (complaint_type, max(creation_date))
+    def get_incidents_most_recent(self):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT incident, MAX(creation_date) FROM ERI GROUP BY incident")
+        incident_list = cursor.fetchall()
+        cursor.execute("SELECT complaint_type, MAX(creation_date) FROM ServiceRequests GROUP BY complaint_type")
+        incident_list.extend(cursor.fetchall())
+        return incident_list
 
 
 

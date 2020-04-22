@@ -16,6 +16,5 @@ def main():
     # print(operator.get_range("ERI", 40, 41, -75, -74))
     # print(operator.get_incident_union("ServiceRequests"))
 
-
 if __name__ == "__main__":
     main()
