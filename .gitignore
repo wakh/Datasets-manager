@@ -1,5 +1,4 @@
-ServiceRequests.csv
-ERI.csv
+code/datasets/*
 code/__pycache__/*
 venv/*
 __pycache/*

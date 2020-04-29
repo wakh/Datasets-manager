@@ -1,4 +1,5 @@
 from code.database import SqlOperator
+import os
 
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
 
@@ -10,11 +11,11 @@ def main():
     # TODO invoke your code to load the data into the database
     operator = SqlOperator(connection_string)
     # first time setup
+    dir_path = os.path.dirname(os.path.realpath(__file__))
     operator.check_if_setup_needed(
-            "/home/fangyu/Documents/compsci/Database_Systems/spring-2020-csci-4380/final-project/ERI.csv",
-            "/home/fangyu/Documents/compsci/Database_Systems/spring-2020-csci-4380/final-project/ServiceRequests.csv")
-    # print(operator.get_range("ERI", 40, 41, -75, -74))
-    # print(operator.get_incident_union("ServiceRequests"))
+            dir_path + "/datasets/Emergency_Response_Incidents.csv",
+            dir_path + "/datasets/311_Service_Requests_from_2010_to_Present.csv")
 
+:pow()
 if __name__ == "__main__":
     main()

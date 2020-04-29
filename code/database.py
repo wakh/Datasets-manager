@@ -36,7 +36,7 @@ class SqlOperator:
     def __setup(self, sql_schema_file, path_to_csv, path_to_service_requests):
         self.__run_sql_file("schema.sql")
         cursor = self.conn.cursor()
-        # copy the ERI.csv to the table t
+        # copy the Emergency_Response_Incidents.csv to the table t
         f = open(path_to_csv, 'r')
         cursor.copy_expert("COPY t FROM stdin WITH CSV HEADER DELIMITER as ','", file=f)
         f.close()
@@ -50,7 +50,7 @@ class SqlOperator:
                        "ON CONFLICT DO NOTHING;")
         self.conn.commit()
         print("Halfway")
-        # copy ServiceRequests.csv to table t2
+        # copy 311_Service_Requests_from_2010_to_Present.csv to table t2
         f = open(path_to_service_requests, 'r')
         cursor.copy_expert("COPY t2 FROM stdin WITH CSV HEADER DELIMITER as ','", file=f)
         f.close()
