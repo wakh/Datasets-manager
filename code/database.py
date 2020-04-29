@@ -112,6 +112,7 @@ class SqlOperator:
             "FROM ERI, ServiceRequests WHERE ERI.creation_date = ServiceRequests.creation_date")
         return cursor.fetchall()
 
+    # gets the union of latitude and longitude
     def get_coords_union(self):
         cursor = self.conn.cursor()
         cursor.execute(
