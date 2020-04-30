@@ -1,4 +1,5 @@
 code/datasets/*
 code/__pycache__/*
+code/test.py
 venv/*
 __pycache/*

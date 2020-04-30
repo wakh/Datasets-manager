@@ -5,7 +5,7 @@ connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_pro
 
 def __check_input(string, type):
     if type == "float":
-        if isinstance(string, (float, int)):
+        if isinstance(string, (float, int)) == False:
             print("ERROR: Type Mismatch")
             return False
         return True
@@ -39,13 +39,13 @@ def main():
             print("Input which database to select from (ERI, Service Requests, both)")
             relation = input()
             print("Input Lower Latitude:")
-            lower_lat = input()
+            lower_lat = float(input())
             print("Input Upper Latitude:")
-            upper_lat = input()
+            upper_lat = float(input())
             print("Input Lower Longitude:")
-            lower_long = input()
+            lower_long = float(input())
             print("Input Upper Longitude:")
-            upper_long = input()
+            upper_long = float(input())
             # check input
             if __check_input(lower_lat, "float") == False or __check_input(upper_lat, "float") == False or \
                     __check_input(lower_long, "float") == False or __check_input(upper_long, "float") == False or \
@@ -63,13 +63,13 @@ def main():
             correct_input = True
             # get range for coordinates
             print("Input Lower Latitude:")
-            lower_lat = input()
+            lower_lat = float(input())
             print("Input Upper Latitude:")
-            upper_lat = input()
+            upper_lat = float(input())
             print("Input Lower Longitude:")
-            lower_long = input()
+            lower_long = float(input())
             print("Input Upper Longitude:")
-            upper_long = input()
+            upper_long = float(input())
             # check input
             if __check_input(lower_lat, "float") == False or __check_input(upper_lat, "float") == False or \
                     __check_input(lower_long, "float") == False or __check_input(upper_long, "float") == False:
