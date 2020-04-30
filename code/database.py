@@ -80,7 +80,7 @@ class SqlOperator:
 
     # [inclusive lower, exclusive upper)
     # upper is always the larger number: ex. -74 < -73 and 2 > 1
-    def get_range_coords(self, relation, lower_lat, upper_lat, lower_long, upper_long):
+    def get_coords_range(self, relation, lower_lat, upper_lat, lower_long, upper_long):
         cursor = self.conn.cursor()
         cursor.execute("SELECT * FROM " + relation + " WHERE latitude >= " + str(lower_lat) + " AND latitude < "
                        + str(upper_lat) + " AND longitude >= " + str(lower_long) + "AND longitude < " +
@@ -90,7 +90,7 @@ class SqlOperator:
     # [inclusive lower, exclusive upper)
     # upper date is the more recent date
     # Use date format MM/DD/YYYY HH:MI:SS AM
-    def get_range_date(self, relation, lower_date, upper_date):
+    def get_date_range(self, relation, lower_date, upper_date):
         cursor = self.conn.cursor()
         cursor.execute("SELECT * FROM " + relation + " WHERE date >= to_timestamp(" + lower_date + ""
                             ", \'MM/DD/YYYY HH:MI:SS AM\') AND date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\'")
