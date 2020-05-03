@@ -37,6 +37,8 @@ def __check_input(string, type):
 
 
 def main():
+    print("Welcome to the 311 Service Requests and Emergency Response Incident Map for New York City")
+    print("For a list of commands input the command \\help")
     operator = MapOperator(connection_string)
     while True:
         print("Input a command:")
@@ -45,6 +47,19 @@ def main():
         # Exit Command
         if cmd == "\\q":
             break
+        elif cmd == "\\help":
+            print("COMMAND LIST =======================================")
+            print("\\range coordinates")
+            print("\\range coordinates union")
+            print("\\range date")
+            print("\\range date union")
+            print("\\location coordinates")
+            print("\\union coordinates")
+            print("\\union date")
+            print("\\union coord_and_date")
+            print("\\incidents sum")
+            print("\\incidents recent")
+            print("====================================================")
         elif cmd == "\\range coordinates":
             correct_input = True
             # get range for coordinates
