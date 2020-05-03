@@ -15,7 +15,6 @@ def main():
     operator.check_if_setup_needed(
             dir_path + "/datasets/Emergency_Response_Incidents.csv",
             dir_path + "/datasets/311_Service_Requests_from_2010_to_Present.csv")
-    # print(operator.get_incident_union("ServiceRequests"))
 
 
 if __name__ == "__main__":

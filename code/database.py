@@ -34,14 +34,18 @@ class SqlOperator:
     # runs schema.sql
     # need the path to csv from root/absolute path
     def __setup(self, sql_schema_file, path_to_csv, path_to_service_requests):
+        print("Running Database Setup From CSV Files.")
         self.__run_sql_file("schema.sql")
         cursor = self.conn.cursor()
+        print("Copying ERI Data.")
         # copy the Emergency_Response_Incidents.csv to the table t
         f = open(path_to_csv, 'r')
         cursor.copy_expert("COPY t FROM stdin WITH CSV HEADER DELIMITER as ','", file=f)
+        print("ERI Data Copied.")
         f.close()
         self.conn.commit()
         # insert table t to table ERI with specific columns only
+        print("Installing ERI Database.")
         cursor.execute("INSERT INTO ERI SELECT x0 AS incident, x1 AS borough, "
                        "to_timestamp(x3, 'MM/DD/YYYY HH:MI:SS AM') AS creation_date, "
                        "to_timestamp(x4, 'MM/DD/YYYY HH:MI:SS AM') AS closed_date, "
@@ -49,12 +53,15 @@ class SqlOperator:
                        "WHERE x0 IS NOT NULL AND x3 IS NOT NULL AND x5 IS NOT NULL AND x6 IS NOT NULL "
                        "ON CONFLICT DO NOTHING;")
         self.conn.commit()
-        print("Halfway")
+        print("ERI Database Installed.")
         # copy 311_Service_Requests_from_2010_to_Present.csv to table t2
+        print("Copying Service Requests Data")
         f = open(path_to_service_requests, 'r')
         cursor.copy_expert("COPY t2 FROM stdin WITH CSV HEADER DELIMITER as ','", file=f)
+        print("Service Requests Data Copied.")
         f.close()
         self.conn.commit()
+        print("Installing Service Requests Database.")
         # insert table t2 to table ServiceRequests with specific columns only
         cursor.execute("INSERT INTO ServiceRequests SELECT x5 AS complaint_type, x25 AS borough, "
                        "to_timestamp(x1, 'MM/DD/YYYY HH:MI:SS AM') AS creation_date, "
@@ -63,13 +70,18 @@ class SqlOperator:
                        "WHERE x5 IS NOT NULL AND x1 IS NOT NULL AND x38 IS NOT NULL AND x39 IS NOT NULL "
                        "ON CONFLICT DO NOTHING;")
         self.conn.commit()
+        print("Service Requests Database Installed.")
         # delete pre-processing tables
         cursor.execute("DROP TABLE t; DROP TABLE t2")
         self.conn.commit()
         # make indices for tables
+        print("Setting Up Indices.")
         self.__run_sql_file("db-indices.sql")
+        print("Indices Installed.")
+        print("Setup Complete.")
 
     def check_if_setup_needed(self, path_to_csv, path_to_service_requests):
+        print("Checking for Existing Installation.")
         cursor = self.conn.cursor()
         cursor.execute("SELECT EXISTS(SELECT 1 FROM pg_tables WHERE tablename = 'eri')")
         eri_sample = cursor.fetchall()
@@ -77,6 +89,8 @@ class SqlOperator:
         service_sample = cursor.fetchall()
         if eri_sample[0][0] == False or service_sample[0][0] == False:
             self.__setup("schema.sql", path_to_csv, path_to_service_requests)
+        else:
+            print("Installation Exists")
 
     # [inclusive lower, exclusive upper)
     # upper is always the larger number: ex. -74 < -73 and 2 > 1
