@@ -39,7 +39,7 @@ def __check_input(string, type):
 def main():
     print("Welcome to the 311 Service Requests and Emergency Response Incident Map for New York City")
     print("For a list of commands input the command \\help")
-	print("To quit the program input the command \\q")
+    print("To quit the program input the command \\q")
     operator = MapOperator(connection_string)
     while True:
         print("Input a command:")
@@ -50,7 +50,7 @@ def main():
             break
         elif cmd == "\\help":
             print("COMMAND LIST =======================================")
-			print("\\q")
+            print("\\q")
             print("\\range coordinates")
             print("\\range coordinates union")
             print("\\range date")
