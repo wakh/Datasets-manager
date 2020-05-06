@@ -1,6 +1,6 @@
-#Database Systems Final Group Project
+# Database Systems Final Group Project
 
-##What's in the Application
+## What's in the Application
 'application.py': The bulk of our code. Runs an infinite loop reading user input and running the appropriate commands
 'database.py':
 'datasets.txt': The two datasets we are working with
@@ -9,10 +9,10 @@
 'load_data.py': Loads data from the datasets
 'map_operator.py': Collection of usable functions on the map
 'requirements.txt': Contains necessary dependencies
-'schema.sql': 
+'schema.sql': Creates the table skeletons for the database
 
 
-##Setup
+## Setup
 All manually run files are located in the 'code' subdirectory.
 'requirements.txt' includes wget for "" and psycopg2 for python-to-sql code to work.
 Run 'db-setup.sql' first to inititate the database 'dbms_final_project' and the user 'dbms_project_user' with granted access to the database.
@@ -20,5 +20,5 @@ Then run 'retrieve_data.py' to download the datasets into a new 'datasets' direc
 Finally, run 'load_data.py' to load data from 'datasets' to your database. This may take around the same amount of time as 'retrieve_data.py'.
 
 
-##Application
+## Application
 After running 'application.py', you can input any of the given commands to select a query to run (use \help to bring up a list of possible commands).
