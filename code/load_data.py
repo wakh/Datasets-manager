@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 import psycopg2
+=======
+from database import SqlOperator
+import os
+>>>>>>> Stashed changes
 
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
 
