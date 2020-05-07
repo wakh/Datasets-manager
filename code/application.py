@@ -1,5 +1,6 @@
 from code.map_operator import MapOperator
 from code.database import SqlOperator
+from code.mapAPI import mapFunc
 
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
 
