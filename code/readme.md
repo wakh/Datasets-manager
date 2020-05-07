@@ -1,4 +1,4 @@
-# Database Systems Final Group Project
+# Database Systems Final Group Project Instructions
 
 ## What's in the Application
 `application.py`: The bulk of our code. Runs an infinite loop reading user input and running the appropriate commands
