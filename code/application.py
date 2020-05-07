@@ -213,8 +213,10 @@ def main():
             print("code")
             
         elif cmd == "\\incidents sum":
+            operator.get_incidents_group_sum(operator)
             print("code")
         elif cmd == "\\incidents recent":
+            operator.get_incidents_most_recent(operator)
             print("code")
         else:
             print("ERROR: Input not Valid.")
