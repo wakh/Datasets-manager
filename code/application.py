@@ -89,10 +89,10 @@ def main():
             # execute map op
             if correct_input:
                 if relation != "both":
-                    operator.get_coords_range_one(operator,relation,lower_lat,\
+                    operator.get_coords_range_one(relation,lower_lat,\
                     upper_lat, lower_long,upper_long)
                 else:
-                    operator.get_coords_range_union(operator,lower_lat,\
+                    operator.get_coords_range_union(lower_lat,\
                     upper_lat, lower_long,upper_long)
                 # execute code
                 # use if else if else to get relation needed
@@ -122,7 +122,7 @@ def main():
             # execute map op
             if correct_input:
                 # execute code and get both relations range
-                operator.get_coords_range_union(operator,lower_lat,\
+                operator.get_coords_range_union(lower_lat,\
                 upper_lat, lower_long,upper_long)
                 print("code")
         
@@ -139,7 +139,7 @@ def main():
             upper_date = input()
 
             # check input
-            if __check_input(lower_date, "date") == False or __check_input(upper_date, "float") == False or \
+            if __check_input(lower_date, "date") == False or __check_input(upper_date, "date") == False or \
                     __check_input(relation, "relation"):
                 correct_input = False
             if __compare_date(upper_date, lower_date) == False:
@@ -150,9 +150,9 @@ def main():
             if correct_input:
                 # do the same as range coordinate one
                 if relation != "both":
-                    operator.get_date_range_one(operator,relation,lower_date,upper_date)
+                    operator.get_date_range_one(relation,lower_date,upper_date)
                 else:
-                    operator.get_date_range_union(operator,lower_date,upper_date)
+                    operator.get_date_range_union(lower_date,upper_date)
                 print("code")
                 
         #this command is used to get all incidents/complaints within a range of dates in the two datasets ERI and ServiceRequests
@@ -166,7 +166,7 @@ def main():
             upper_date = input()
 
             # check input
-            if __check_input(lower_date, "date") == False or __check_input(upper_date, "float") == False:
+            if __check_input(lower_date, "date") == False or __check_input(upper_date, "date") == False:
                 correct_input = False
             if __compare_date(upper_date, lower_date) == False:
                 print("ERROR: Date bounds have negative distance")
@@ -175,7 +175,7 @@ def main():
             # execute map op
             if correct_input:
                 # execute range date on both relations and extend one of them
-                operator.get_date_range_union(operator,lower_date,upper_date)
+                operator.get_date_range_union(lower_date,upper_date)
                 print("code")
                 
          #this command is used to get all incidents/complaints with specific coordinates in the two datasets ERI and ServiceRequests
@@ -194,29 +194,29 @@ def main():
             # execute map op
             if correct_input:
                 # execute input on both maps
-                operator.get_coords_union_one(operator,latitude,longitude)
+                operator.get_coords_union_one(latitude,longitude)
                 print("code")
                 
          #this command is used to get all incidents/complaints with the same coordinates in the two datasets ERI and ServiceRequests
         elif cmd == "\\union coordinates":
-            operator.get_same_coords(operator)
+            operator.get_same_coords()
             print("code")
             
         #this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
         elif cmd == "\\union date":
-            operator.get_same_time(operator)
+            operator.get_same_time()
             print("code")
             
          #this command is used to get all incidents and complaints with the same coordinates and date in the two datasets ERI and ServiceRequests
         elif cmd == "\\union coord_and_date":
-            operator.get_same_time_and_coords(operator)
+            operator.get_same_time_and_coords()
             print("code")
             
         elif cmd == "\\incidents sum":
-            operator.get_incidents_group_sum(operator)
+            operator.get_incidents_group_sum()
             print("code")
         elif cmd == "\\incidents recent":
-            operator.get_incidents_most_recent(operator)
+            operator.get_incidents_most_recent()
             print("code")
         else:
             print("ERROR: Input not Valid.")
