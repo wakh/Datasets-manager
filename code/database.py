@@ -106,19 +106,25 @@ class SqlOperator:
     # Use date format MM/DD/YYYY HH:MI:SS AM
     def get_date_range(self, relation, lower_date, upper_date):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM " + relation + " WHERE date >= to_timestamp(" + lower_date + ""
-                            ", \'MM/DD/YYYY HH:MI:SS AM\') AND date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\'")
+        cursor.execute("SELECT * FROM " + relation + " WHERE creation_date >= to_timestamp(" + lower_date + ", \'MM/DD/YYYY HH:MI:SS AM\') AND creation_date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\')")
         return cursor.fetchall()
 
-    # returns all points in the latitude and longitude
+    # returns all points in the specific latitude and longitude
     def get_coords(self, relation, latitude, longitude):
         cursor = self.conn.cursor()
         cursor.execute("SELECT * FROM " + relation + " WHERE latitude = " + str(latitude) +
                        " AND longitude = " + str(longitude))
         return cursor.fetchall()
+        
+    # returns all points in the specific creation_date
+    def get_date(self, relation, date):
+    cursor = self.conn.cursor()
+    cursor.execute("SELECT * FROM " + relation + " WHERE creation_date = to_timestamp(" + date + ", \'MM/DD/YYYY HH:MI:SS AM\')")
+    return cursor.fetchall()
 
-    # gets the union of creation_date
-    def get_time_union(self):
+
+    # gets the incidents/complaints of the same creation_date
+    def get_same_time(self):
         cursor = self.conn.cursor()
         cursor.execute(
             "SELECT ERI.incident, ServiceRequests.complaint_type ERI.borough, "
@@ -126,18 +132,77 @@ class SqlOperator:
             "FROM ERI, ServiceRequests WHERE ERI.creation_date = ServiceRequests.creation_date")
         return cursor.fetchall()
 
-    # gets the union of latitude and longitude
-    def get_coords_union(self):
+   # gets the incidents/complaints of the same coordinates
+     def get_same_coords(self):
+         cursor = self.conn.cursor()
+         cursor.execute(
+             "SELECT ERI.incident, ServiceRequests.complaint_type ERI.borough, "
+             "ERI.creation_date, ERI.closed_date, ERI.latitude, ERI.longitude "
+             "FROM ERI, ServiceRequests WHERE ERI.latitude = ServiceRequests.latitude AND "
+             "ERI.longitude = ServiceRequests.longitude")
+         return cursor.fetchall()
+            
+    def get_coords_union_one(self, latitude, longitude):
         cursor = self.conn.cursor()
         cursor.execute(
-            "SELECT ERI.incident, ServiceRequests.complaint_type ERI.borough, "
-            "ERI.creation_date, ERI.closed_date, ERI.latitude, ERI.longitude "
-            "FROM ERI, ServiceRequests WHERE ERI.latitude = ServiceRequests.latitude AND "
-            "ERI.longitude = ServiceRequests.longitude")
+            "SELECT ERI.incident AS incident_or_complaint, ERI.borough,ERI.creation_date, ERI.closed_date,ERI.latitude, ERI.longitude "
+            "FROM ERI, ServiceRequests WHERE latitude = " + str(latitude) +  " AND longitude = " + str(longitude)+
+            "UNION SELECT ServiceRequests.complaint_type AS incident_or_complaint, ServiceRequests.borough, ServiceRequests.creation_date, ServiceRequests.closed_date, ServiceRequests.latitude, ServiceRequests.longitude "
+            "FROM ServiceRequests WHERE WHERE latitude = " + str(latitude) +  " AND longitude = " + str(longitude))
         return cursor.fetchall()
 
-    # gets the union of creation_date and coordinates
-    def get_time_and_coords_union(self):
+    def get_date_union_one(self, date):
+        cursor = self.conn.cursor()
+        cursor.execute(
+            "SELECT ERI.incident AS incident_or_complaint, ERI.borough,ERI.creation_date, ERI.closed_date,ERI.latitude, ERI.longitude "
+            "FROM ERI, ServiceRequests WHERE creation_date = to_timestamp(" + date + ", \'MM/DD/YYYY HH:MI:SS AM\') "
+            "UNION SELECT ServiceRequests.complaint_type AS incident_or_complaint, ServiceRequests.borough, ServiceRequests.creation_date, ServiceRequests.closed_date, ServiceRequests.latitude, ServiceRequests.longitude "
+            "FROM ServiceRequests WHERE creation_date >= to_timestamp(" + date + ", \'MM/DD/YYYY HH:MI:SS AM\')"
+            )
+        return cursor.fetchall()
+
+         
+    # gets the union of a range of creation_date
+    def get_time_range_union(self,lower_date,upper_date):
+        cursor = self.conn.cursor()
+        cursor.execute(
+            "SELECT ERI.incident AS incident_or_complaint, ERI.borough,ERI.creation_date, ERI.closed_date,ERI.latitude, ERI.longitude "
+            "FROM ERI, ServiceRequests WHERE creation_date >= to_timestamp(" + lower_date + ", \'MM/DD/YYYY HH:MI:SS AM\') AND creation_date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\')"
+            "UNION SELECT ServiceRequests.complaint_type AS incident_or_complaint, ServiceRequests.borough, ServiceRequests.creation_date, ServiceRequests.closed_date, ServiceRequests.latitude, ServiceRequests.longitude "
+            "FROM ServiceRequests WHERE creation_date >= to_timestamp(" + lower_date + ", \'MM/DD/YYYY HH:MI:SS AM\') AND creation_date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\')"
+            )
+        return cursor.fetchall()
+
+    # gets the union of a range of latitude and longitude
+    def get_coords_range_union(self,lower_lat,upper_lat,lower_long,upper_long):
+        cursor = self.conn.cursor()
+        cursor.execute(
+            "SELECT ERI.incident AS incident_or_complaint, ERI.borough,ERI.creation_date, ERI.closed_date,ERI.latitude, ERI.longitude "
+            "FROM ERI, ServiceRequests WHERE latitude >= " + str(lower_lat) + " AND latitude < "
+            + str(upper_lat) + " AND longitude >= " + str(lower_long) + "AND longitude < " +
+            str(upper_long)+
+            "UNION SELECT ServiceRequests.complaint_type AS incident_or_complaint, ServiceRequests.borough, ServiceRequests.creation_date, ServiceRequests.closed_date, ServiceRequests.latitude, ServiceRequests.longitude "
+            "FROM ServiceRequests WHERE latitude >= " + str(lower_lat) + " AND latitude < "
+            + str(upper_lat) + " AND longitude >= " + str(lower_long) + "AND longitude < " +
+            str(upper_long))
+        return cursor.fetchall()
+
+
+     #gets the union of a range of creation_time and coordinates
+     def get_time_and_coords_range_union(self,lower_lat,upper_lat,lower_long,upper_long,lower_date,upper_date):
+        cursor = self.conn.cursor()
+        cursor.execute(
+                "SELECT ERI.incident AS incident_or_complaint, ERI.borough,ERI.creation_date, ERI.closed_date,ERI.latitude, ERI.longitude "
+                "FROM ERI, ServiceRequests WHERE latitude >= " + str(lower_lat) + " AND latitude < "
+                + str(upper_lat) + " AND longitude >= " + str(lower_long) + "AND longitude < " +
+                str(upper_long)+"AND creation_date >= to_timestamp(" + lower_date + ", \'MM/DD/YYYY HH:MI:SS AM\') AND creation_date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\')"
+                "UNION SELECT ServiceRequests.complaint_type AS incident_or_complaint, ServiceRequests.borough, ServiceRequests.creation_date, ServiceRequests.closed_date, ServiceRequests.latitude, ServiceRequests.longitude "
+                "FROM ServiceRequests WHERE latitude >= " + str(lower_lat) + " AND latitude < "
+                + str(upper_lat) + " AND longitude >= " + str(lower_long) + "AND longitude < " +str(upper_long)+"AND creation_date >= to_timestamp(" + lower_date + ", \'MM/DD/YYYY HH:MI:SS AM\') AND creation_date < to_timestamp(" + upper_date + ", \'MM/DD/YYYY HH:MI:SS AM\')")
+        return cursor.fetchall()
+            
+    # gets the incidents/complaints of the same time and coordinates
+    def get_same_time_and_coords(self):
         cursor = self.conn.cursor()
         cursor.execute("SELECT ERI.incident, ServiceRequests.complaint_type ERI.borough, "
                        "ERI.creation_date, ERI.closed_date, ERI.latitude, ERI.longitude "

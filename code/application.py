@@ -1,6 +1,5 @@
 from map_operator import MapOperator
 from database import SqlOperator
-from mapAPI import mapFunc
 
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
 
@@ -42,6 +41,7 @@ def main():
     print("For a list of commands input the command \\help")
     print("To quit the program input the command \\q")
     operator = MapOperator(connection_string)
+    
     while True:
         print("Input a command:")
         cmd = input()
@@ -63,6 +63,7 @@ def main():
             print("\\incidents sum")
             print("\\incidents recent")
             print("====================================================")
+        #this command is used to get all incidents/complaints within a range of coordinates in  database(s) specified by users
         elif cmd == "\\range coordinates":
             correct_input = True
             # get range for coordinates
@@ -87,10 +88,18 @@ def main():
 
             # execute map op
             if correct_input:
+                if relation != "both":
+                    operator.get_coords_range_one(operator,relation,lower_lat,\
+                    upper_lat, lower_long,upper_long)
+                else:
+                    operator.get_coords_range_union(operator,lower_lat,\
+                    upper_lat, lower_long,upper_long)
                 # execute code
                 # use if else if else to get relation needed
                 # for both relations get both and use extend list
                 print("code")
+                
+        #this command is used to get all incidents/complaints within a range of coordinates in the two datasets ERI and ServiceRequests
         elif cmd == "\\range coordinates union":
             correct_input = True
             # get range for coordinates
@@ -113,7 +122,11 @@ def main():
             # execute map op
             if correct_input:
                 # execute code and get both relations range
+                operator.get_coords_range_union(operator,lower_lat,\
+                upper_lat, lower_long,upper_long)
                 print("code")
+        
+        #this command is used to get all incidents/complaints within a range of dates in database(s) specified by users
         elif cmd == "\\range date":
             correct_input = True
             # get input
@@ -136,7 +149,13 @@ def main():
             # execute map op
             if correct_input:
                 # do the same as range coordinate one
+                if relation != "both":
+                    operator.get_date_range_one(operator,relation,lower_date,upper_date)
+                else:
+                    operator.get_date_range_union(operator,lower_date,upper_date)
                 print("code")
+                
+        #this command is used to get all incidents/complaints within a range of dates in the two datasets ERI and ServiceRequests
         elif cmd == "\\range date union":
             correct_input = True
             # get input
@@ -156,7 +175,10 @@ def main():
             # execute map op
             if correct_input:
                 # execute range date on both relations and extend one of them
+                operator.get_date_range_union(operator,lower_date,upper_date)
                 print("code")
+                
+         #this command is used to get all incidents/complaints with specific coordinates in the two datasets ERI and ServiceRequests
         elif cmd == "\\location coordinates":
             correct_input = True
             # get input
@@ -172,13 +194,24 @@ def main():
             # execute map op
             if correct_input:
                 # execute input on both maps
+                operator.get_coords_union_one(operator,latitude,longitude)
                 print("code")
+                
+         #this command is used to get all incidents/complaints with the same coordinates in the two datasets ERI and ServiceRequests
         elif cmd == "\\union coordinates":
+            operator.get_same_coords(operator)
             print("code")
+            
+        #this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
         elif cmd == "\\union date":
+            operator.get_same_time(operator)
             print("code")
+            
+         #this command is used to get all incidents and complaints with the same coordinates and date in the two datasets ERI and ServiceRequests
         elif cmd == "\\union coord_and_date":
+            operator.get_same_time_and_coords(operator)
             print("code")
+            
         elif cmd == "\\incidents sum":
             print("code")
         elif cmd == "\\incidents recent":
