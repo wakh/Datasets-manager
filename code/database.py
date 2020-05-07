@@ -129,7 +129,7 @@ class SqlOperator:
     def get_same_time(self):
         sql = "SELECT ERI.incident, ServiceRequests.complaint_type,ERI.borough,"\
               " ERI.creation_date, ERI.closed_date, ERI.latitude, ERI.longitude"\
-              " FROM ERI, ServiceRequests" \
+              " FROM ERI, ServiceRequests"\
               " WHERE ERI.creation_date = ServiceRequests.creation_date"
         return pd.read_sql(sql, self.conn)
 
@@ -137,8 +137,8 @@ class SqlOperator:
     def get_same_coords(self):
         sql = "SELECT ERI.incident, ServiceRequests.complaint_type,ERI.borough,"\
               " ERI.creation_date, ERI.closed_date, ERI.latitude, ERI.longitude"\
-              " FROM ERI, ServiceRequests" \
-              " WHERE ERI.latitude = ServiceRequests.latitude" \
+              " FROM ERI, ServiceRequests"\
+              " WHERE ERI.latitude = ServiceRequests.latitude"\
               " AND ERI.longitude = ServiceRequests.longitude"
         return pd.read_sql(sql, self.conn)
 
@@ -177,7 +177,7 @@ class SqlOperator:
     def get_date_range_union(self, lower_date, upper_date):
         sql = "SELECT ERI.incident AS incident_or_complaint, ERI.borough,"\
               " ERI.creation_date, ERI.closed_date,ERI.latitude, ERI.longitude"\
-              " FROM ERI " \
+              " FROM ERI "\
               " WHERE creation_date >= to_timestamp('" + lower_date + "', 'MM/DD/YYYY HH:MI:SS AM')"\
               " AND creation_date < to_timestamp('" + upper_date + "', 'MM/DD/YYYY HH:MI:SS AM')"
         return pd.read_sql(sql, self.conn)

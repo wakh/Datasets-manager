@@ -1,2 +1,5 @@
 psycopg2-binary
 wget
+folium
+cefpython3
+pandas
