@@ -132,14 +132,15 @@ class SqlOperator:
             "FROM ERI, ServiceRequests WHERE ERI.creation_date = ServiceRequests.creation_date")
         return cursor.fetchall()
 
-   # gets the incidents/complaints of the same coordinates
-    def get_same_coords(self):
+   # gets the incidents/complaints of the same borough
+    def get_incidents_in_borough(self, borough):
         cursor = self.conn.cursor()
         cursor.execute(
              "SELECT ERI.incident, ServiceRequests.complaint_type,ERI.borough, "
              "ERI.creation_date, ERI.closed_date, ERI.latitude, ERI.longitude "
-             "FROM ERI, ServiceRequests WHERE ERI.latitude = ServiceRequests.latitude AND "
-             "ERI.longitude = ServiceRequests.longitude")
+             "FROM ERI JOIN ServiceRequests ON LOWER(ERI.Borough) = LOWER(ServiceRequests.Borough) "
+             "WHERE LOWER(ERI.Borough) = \'" + str(borough) + "\' AND "
+             "LOWER(ServiceRequests.Borough) = \'" + str(borough) + "\';")
         return cursor.fetchall()
             
     def get_coords_union_one(self, latitude, longitude):

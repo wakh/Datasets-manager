@@ -45,8 +45,7 @@ def main():
     operator = MapOperator(connection_string)
     
     while True:
-        print("Input a command:")
-        cmd = input()
+        cmd = input("Input a command: ")
 
         # Exit Command
         if cmd == "\\q":
@@ -59,9 +58,9 @@ def main():
             print("\\range date")
             print("\\range date union")
             print("\\location coordinates")
-            print("\\union coordinates")
             print("\\union date")
             print("\\union coord_and_date")
+            print("\\incidents borough")
             print("\\incidents sum")
             print("\\incidents recent")
             print("====================================================")
@@ -69,16 +68,11 @@ def main():
         elif cmd == "\\range coordinates":
             correct_input = True
             # get range for coordinates
-            print("Input which database to select from (ERI, Service Requests, both)")
-            relation = input()
-            print("Input Lower Latitude:")
-            lower_lat = float(input())
-            print("Input Upper Latitude:")
-            upper_lat = float(input())
-            print("Input Lower Longitude:")
-            lower_long = float(input())
-            print("Input Upper Longitude:")
-            upper_long = float(input())
+            relation = input("Input which database to select from (ERI, Service Requests, both): ")
+            lower_lat = float(input("Input Lower Latitude: "))
+            upper_lat = float(input("Input Upper Latitude: "))
+            lower_long = float(input("Input Lower Longitude: "))
+            upper_long = float(input("Input Upper Longitude: "))
 
             # check input
             if __check_input(lower_lat, "float") == False or __check_input(upper_lat, "float") == False or \
@@ -105,14 +99,10 @@ def main():
         elif cmd == "\\range coordinates union":
             correct_input = True
             # get range for coordinates
-            print("Input Lower Latitude:")
-            lower_lat = float(input())
-            print("Input Upper Latitude:")
-            upper_lat = float(input())
-            print("Input Lower Longitude:")
-            lower_long = float(input())
-            print("Input Upper Longitude:")
-            upper_long = float(input())
+            lower_lat = float(input("Input Lower Latitude: "))
+            upper_lat = float(input("Input Upper Latitude: "))
+            lower_long = float(input("Input Lower Longitude: "))
+            upper_long = float(input("Input Upper Longitude: "))
 
             # check input
             if __check_input(lower_lat, "float") == False or __check_input(upper_lat, "float") == False or \
@@ -132,13 +122,10 @@ def main():
         elif cmd == "\\range date":
             correct_input = True
             # get input
-            print("Input which database to select from (ERI, Service Requests, both)")
-            relation = input()
+            relation = input("Input which database to select from (ERI, Service Requests, both): ")
             print("Input Date as MM/DD/YYYY HH:MI:SS AM.")
-            print("Input first date(oldest):")
-            lower_date = input()
-            print("input second date(recent):")
-            upper_date = input()
+            lower_date = input("Input first date(oldest): ")
+            upper_date = input("input second date(recent): ")
 
             # check input
             if __check_input(lower_date, "date") == False or __check_input(upper_date, "date") == False or \
@@ -162,10 +149,8 @@ def main():
             correct_input = True
             # get input
             print("Input Date as MM/DD/YYYY HH:MI:SS AM.")
-            print("Input first date(oldest):")
-            lower_date = input()
-            print("input second date(recent):")
-            upper_date = input()
+            lower_date = input("Input first date(oldest): ")
+            upper_date = input("input second date(recent): ")
 
             # check input
             if __check_input(lower_date, "date") == False or __check_input(upper_date, "date") == False:
@@ -184,10 +169,8 @@ def main():
         elif cmd == "\\location coordinates":
             correct_input = True
             # get input
-            print("Input Latitude:")
-            latitude = input()
-            print("Input Longitude:")
-            longitude = input()
+            latitude = input("Input Latitude:")
+            longitude = input("Input Longitude:")
 
             # check input
             if __check_input(latitude, "float") == False:
@@ -203,12 +186,7 @@ def main():
                 operator.get_coords_union_one(latitude,longitude)
                 print("code")
                 
-         #this command is used to get all incidents/complaints with the same coordinates in the two datasets ERI and ServiceRequests
-        elif cmd == "\\union coordinates":
-            operator.get_same_coords()
-            print("code")
-            
-        #this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
+         #this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
         elif cmd == "\\union date":
             operator.get_same_time()
             print("code")
@@ -218,14 +196,22 @@ def main():
             operator.get_same_time_and_coords()
             print("code")
             
+         #this command is used to get all incidents/complaints in the same borough
+        elif cmd == "\\incidents borough":
+            borough = input("Input borough name: ").lower()
+            operator.get_incidents_in_borough(borough)
+            print("code")    
+            
         elif cmd == "\\incidents sum":
             operator.get_incidents_group_sum()
             print("code")
+            
         elif cmd == "\\incidents recent":
             operator.get_incidents_most_recent()
             print("code")
+            
         else:
-            print("ERROR: Input not Valid.")
+            print("ERROR: Input not Valid. Try \"\\help\" for a list of possible commands")
 
 
 if __name__ == "__main__":

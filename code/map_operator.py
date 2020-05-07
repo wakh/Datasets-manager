@@ -76,11 +76,11 @@ class MapOperator:
         #results are tuples in the format:(incident,complaint_type, borough, creation_date, closed_date, latitude, longitude);
         #map operation here:
 
-    # gets all coords of the union of latitude and longitude
-    def get_same_coords(self):
+    # gets the incidents/complaints of the same borough
+    def get_incidents_in_borough(self, borough):
         # use function of same name
-        print("coords union all")
-        results=self.operator.get_same_coords()
+        print("incidents in borough")
+        results=self.operator.get_incidents_in_borough(borough)
         print(results[0][0])
         #results are tuples in the format:(incident,complaint_type, borough, creation_date, closed_date, latitude, longitude);
         #map operation here:
