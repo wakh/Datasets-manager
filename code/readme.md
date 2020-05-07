@@ -51,7 +51,7 @@ ERI
 -73
 ```
 
-`\range coordinates union`: this command is used to get all incidents/complaints within a range of coordinates in the two datasets ERI and ServiceRequests
+`\range coordinates union`: this command is used to get all incidents/complaints within a range of coordinates in the two datasets ERI and ServiceRequests.
 Usage: 
 ```
 [Input Lower Latitude:]
@@ -64,7 +64,7 @@ Usage:
 -73
 ```
 
-`\range date`: this command is used to get all incidents/complaints within a range of dates in database(s) specified by users
+`\range date`: this command is used to get all incidents/complaints within a range of dates in database(s) specified by users.
 Usage: 
 ```
 [Input which database to select from (ERI, Service Requests, both):]
@@ -76,7 +76,7 @@ ERI
 05/11/2011 11:45:22 AM
 ```
 
-`\range date union`: this command is used to get all incidents/complaints within a range of dates in the two datasets ERI and ServiceRequests
+`\range date union`: this command is used to get all incidents/complaints within a range of dates in the two datasets ERI and ServiceRequests.
 Usage: 
 ```
 [Input Date as MM/DD/YYYY HH:MI:SS AM.]
@@ -86,7 +86,7 @@ Usage:
 05/11/2011 11:45:22 AM
 ```
 
-`\location coordinates`: this command is used to get all incidents/complaints with specific coordinates in the two datasets ERI and ServiceRequests
+`\location coordinates`: this command is used to get all incidents/complaints with specific coordinates in the two datasets ERI and ServiceRequests.
 Usage:
 ```
 [Input Latitude:]
@@ -95,15 +95,15 @@ Usage:
 -73.90436001541751
 ```
 
-`\incidents borough`: this command is used to get all incidents/complaints in the same borough
+`\incidents borough`: this command is used to get all incidents/complaints in the same borough.
 Usage:
 ```
 [Input borough name:]
 Queens
 ```
 
-`\union date`: this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
+`\union date`: this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests.
 
-`\incidents sum`: this command is used to get the the sum of the grouped up incidents/complaints in both datasets
+`\incidents sum`: this command is used to get the the sum of the grouped up incidents/complaints in both datasets.
 
-`\incidents recent`: this command is used to returns the most recent one in each group of incident/complaints in the two datasets
+`\incidents recent`: this command is used to returns the most recent one in each group of incident/complaints in the two datasets.
