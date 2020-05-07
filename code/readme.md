@@ -2,7 +2,7 @@
 
 ## What's in the Application
 `application.py`: The bulk of our code. Runs an infinite loop reading user input and running the appropriate commands
-`database.py`:
+`database.py`: Contains SQL functions
 `datasets.txt`: The two datasets we are working with
 `db-indices.sql`: Creates indices for the database
 `db-setup.sql`: Creates the database and the psql user. Grants database permissions to that user.

@@ -17,7 +17,9 @@ def __compare_date(date1, date2):
 
 def __check_input(string, type):
     if type == "float":
-        if isinstance(string, (float, int)) == False:
+        try:
+            float(string)
+        except ValueError:
             print("ERROR: Type Mismatch")
             return False
         return True
@@ -188,8 +190,12 @@ def main():
             longitude = input()
 
             # check input
-            if __check_input(latitude, "float") == False or __check_input(longitude, "float") == False:
+            if __check_input(latitude, "float") == False:
                 correct_input = False
+                print("ERROR: Latitude was not a float")
+            if __check_input(longitude, "float") == False:
+                correct_input = False
+                print("ERROR: Longitude was not a float")
 
             # execute map op
             if correct_input:
