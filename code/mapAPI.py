@@ -5,7 +5,7 @@ except ImportError:
     import Tkinter as tk
 import platform
 import sys
-import pandas as pd
+import pandas
 import folium
 from folium.plugins import MarkerCluster
 
@@ -17,13 +17,14 @@ WINDOWS = (platform.system() == "Windows")
 LINUX = (platform.system() == "Linux")
 MAC = (platform.system() == "Darwin")
 
+# Constant
+MAXROWS = 1000  # Limit rows for performance
 
-def mapFunc():
+
+def mapFunc(dataframe):
     sys.excepthook = cef.ExceptHook  # To shutdown all CEF processes on error
-    crimedata = pd.read_csv('datasets\Emergency_Response_Incidents.csv')
     root = tk.Tk()
-    app = MainFrame(root, crimedata)
-    # Tk must be initialized before CEF otherwise fatal error (Issue #306)
+    app = MainFrame(root, dataframe)
     cef.Initialize()
     app.mainloop()
     cef.Shutdown()
@@ -52,7 +53,7 @@ class MainFrame(tk.Frame):
         self.paned_window.pack(fill=tk.BOTH, expand=1)
 
         # TableFrame
-        self.table_frame = BrowserFrame(self.paned_window, data.head(1000).to_html())
+        self.table_frame = BrowserFrame(self.paned_window, data.head(MAXROWS).to_html())
         self.paned_window.bind("<Configure>", self.on_configure)
         self.table_frame.configure(width=700)
         self.paned_window.add(self.table_frame, minsize=200)
@@ -70,13 +71,13 @@ class MainFrame(tk.Frame):
         map = folium.Map(location=[40.738, -73.98], zoom_start=12)
 
         # fill nan value
-        data["Latitude"].fillna(0, inplace=True)
-        data["Longitude"].fillna(0, inplace=True)
+        data["latitude"].fillna(0, inplace=True)
+        data["longitude"].fillna(0, inplace=True)
 
         # add a marker for every record in the filtered data, use a clustered view
-        mc = folium.plugins.MarkerCluster().add_to(map)
-        for each in data[0:1000].iterrows():
-            folium.Marker(location=[each[1]['Latitude'], each[1]['Longitude']]).add_to(mc)
+        mc = MarkerCluster().add_to(map)
+        for each in data[0:MAXROWS].iterrows():
+            folium.Marker(location=[each[1]['latitude'], each[1]['longitude']]).add_to(mc)
 
         return map.get_root().render()
 
@@ -158,7 +159,3 @@ class BrowserFrame(tk.Frame):
         # Clear browser references that you keep anywhere in your
         # code. All references must be cleared for CEF to shutdown cleanly.
         self.browser = None
-
-
-if __name__ == '__main__':
-    main()
