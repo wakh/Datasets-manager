@@ -1,4 +1,4 @@
-from code.database import SqlOperator
+from database import SqlOperator
 
 class MapOperator:
 
