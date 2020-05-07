@@ -23,7 +23,7 @@
 ## Setup
 All manually run files are located in the `code` subdirectory.
 
-`requirements.txt` includes wget for "" and psycopg2 for python-to-sql code to work.
+`requirements.txt` includes wget for "", psycopg2 for python-to-sql code to work, and pandas/cefpython3/folium for map integration.
 
 Run `db-setup.sql` first to inititate the database `dbms_final_project` and the user `dbms_project_user` with granted access to the database.
 
