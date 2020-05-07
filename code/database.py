@@ -148,7 +148,7 @@ class SqlOperator:
             "SELECT ERI.incident AS incident_or_complaint, ERI.borough,ERI.creation_date, ERI.closed_date,ERI.latitude, ERI.longitude "
             "FROM ERI WHERE latitude = " + str(latitude) +  " AND longitude = " + str(longitude)+
             "UNION SELECT ServiceRequests.complaint_type AS incident_or_complaint, ServiceRequests.borough, ServiceRequests.creation_date, ServiceRequests.closed_date, ServiceRequests.latitude, ServiceRequests.longitude "
-            "FROM ServiceRequests WHERE WHERE latitude = " + str(latitude) +  " AND longitude = " + str(longitude))
+            "FROM ServiceRequests WHERE latitude = " + str(latitude) +  " AND longitude = " + str(longitude))
         return cursor.fetchall()
 
     def get_date_union_one(self, date):
