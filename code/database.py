@@ -96,30 +96,33 @@ class SqlOperator:
     # [inclusive lower, exclusive upper)
     # upper is always the larger number: ex. -74 < -73 and 2 > 1
     def get_coords_range_one(self, relation, lower_lat, upper_lat, lower_long, upper_long):
-        sql = ("SELECT * FROM " + relation + " WHERE latitude >= " + str(lower_lat) + " AND latitude < "
-               + str(upper_lat) + " AND longitude >= " + str(lower_long) + "AND longitude < " +
-               str(upper_long))
+        sql = "SELECT * FROM " + relation +\
+              " WHERE latitude >= " + str(lower_lat) +\
+              " AND latitude < " + str(upper_lat) +\
+              " AND longitude >= " + str(lower_long) +\
+              " AND longitude < " + str(upper_long)
         return pd.read_sql(sql, self.conn)
 
     # [inclusive lower, exclusive upper)
     # upper date is the more recent date
     # Use date format MM/DD/YYYY HH:MI:SS AM
     def get_date_range_one(self, relation, lower_date, upper_date):
-        sql =("SELECT * FROM " + relation + " WHERE creation_date >= to_timestamp('"
-              + lower_date + "', 'MM/DD/YYYY HH:MI:SS AM') AND creation_date < to_timestamp('"
-              + upper_date + "', 'MM/DD/YYYY HH:MI:SS AM')")
+        sql = "SELECT * FROM " + relation +\
+              " WHERE creation_date >= to_timestamp('" + lower_date + "', 'MM/DD/YYYY HH:MI:SS AM')"\
+              " AND creation_date < to_timestamp('" + upper_date + "', 'MM/DD/YYYY HH:MI:SS AM')"
         return pd.read_sql(sql, self.conn)
 
     # returns all points in the specific latitude and longitude
     def get_coords(self, relation, latitude, longitude):
-        sql = ("SELECT * FROM " + relation + " WHERE latitude = " + str(latitude)
-               + " AND longitude = " + str(longitude))
+        sql = "SELECT * FROM " + relation +\
+              " WHERE latitude = " + str(latitude) +\
+              " AND longitude = " + str(longitude)
         return pd.read_sql(sql, self.conn)
 
     # returns all points in the specific creation_date
     def get_date(self, relation, date):
-        sql = ("SELECT * FROM " + relation + " WHERE creation_date = to_timestamp('"
-               + date + "', 'MM/DD/YYYY HH:MI:SS AM')")
+        sql = "SELECT * FROM " + relation +\
+              " WHERE creation_date = to_timestamp('" + date + "', 'MM/DD/YYYY HH:MI:SS AM')"
         return pd.read_sql(sql, self.conn)
 
     # gets the incidents/complaints of the same creation_date
