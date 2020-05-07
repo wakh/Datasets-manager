@@ -102,8 +102,8 @@ Usage:
 Queens
 ```
 
-`\union date`:  this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
+`\union date`: this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
 
-`\incidents sum`: #this command is used to get the the sum of the grouped up incidents/complaints in both datasets
+`\incidents sum`: this command is used to get the the sum of the grouped up incidents/complaints in both datasets
 
-`\incidents recent`: #this command is used to returns the most recent one in each group of incident/complaints in the two datasets
+`\incidents recent`: this command is used to returns the most recent one in each group of incident/complaints in the two datasets
