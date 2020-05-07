@@ -203,7 +203,7 @@ def main():
          
         #this command is used to get all incidents/complaints in the same borough
         elif cmd == "\\incidents borough":
-            borough = input("Input borough name:").lower()
+            borough = input("Input borough name: ").lower()
             operator.get_incidents_in_borough(borough)
             
             
