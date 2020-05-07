@@ -99,6 +99,7 @@ Usage:
 Usage:
 ```
 [Input borough name:]
+Queens
 ```
 
 `\union date`:  this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
