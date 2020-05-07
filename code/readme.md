@@ -22,3 +22,15 @@ Finally, run `load_data.py` to load data from `datasets` to your database. This 
 
 ## Application
 After running `application.py`, you can input any of the given commands to select a query to run (use \help to bring up a list of possible commands).
+
+### Example Inputs for Each Command
+`\range coordinates`: 
+`\range coordinates union`: 
+`\range date`: 
+`\range date union`: 
+`\location coordinates`: 
+`\union date`: 
+`\union coord_and_date`: 
+`\incidents borough`: 
+`\incidents sum`: 
+`\incidents recent`: 
