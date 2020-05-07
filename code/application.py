@@ -45,7 +45,8 @@ def main():
     operator = MapOperator(connection_string)
     
     while True:
-        cmd = input("Input a command: ")
+        print("Input a command:")
+        cmd = input()
 
         # Exit Command
         if cmd == "\\q":
@@ -58,21 +59,26 @@ def main():
             print("\\range date")
             print("\\range date union")
             print("\\location coordinates")
-            print("\\union date")
-            print("\\union coord_and_date")
             print("\\incidents borough")
+            print("\\union date")
             print("\\incidents sum")
             print("\\incidents recent")
             print("====================================================")
+            
         #this command is used to get all incidents/complaints within a range of coordinates in  database(s) specified by users
         elif cmd == "\\range coordinates":
             correct_input = True
             # get range for coordinates
-            relation = input("Input which database to select from (ERI, Service Requests, both): ")
-            lower_lat = float(input("Input Lower Latitude: "))
-            upper_lat = float(input("Input Upper Latitude: "))
-            lower_long = float(input("Input Lower Longitude: "))
-            upper_long = float(input("Input Upper Longitude: "))
+            print("Input which database to select from (ERI, Service Requests, both)")
+            relation = input()
+            print("Input Lower Latitude:")
+            lower_lat = float(input())
+            print("Input Upper Latitude:")
+            upper_lat = float(input())
+            print("Input Lower Longitude:")
+            lower_long = float(input())
+            print("Input Upper Longitude:")
+            upper_long = float(input())
 
             # check input
             if __check_input(lower_lat, "float") == False or __check_input(upper_lat, "float") == False or \
@@ -93,16 +99,21 @@ def main():
                 # execute code
                 # use if else if else to get relation needed
                 # for both relations get both and use extend list
-                print("code")
+                
+                
                 
         #this command is used to get all incidents/complaints within a range of coordinates in the two datasets ERI and ServiceRequests
         elif cmd == "\\range coordinates union":
             correct_input = True
             # get range for coordinates
-            lower_lat = float(input("Input Lower Latitude: "))
-            upper_lat = float(input("Input Upper Latitude: "))
-            lower_long = float(input("Input Lower Longitude: "))
-            upper_long = float(input("Input Upper Longitude: "))
+            print("Input Lower Latitude:")
+            lower_lat = float(input())
+            print("Input Upper Latitude:")
+            upper_lat = float(input())
+            print("Input Lower Longitude:")
+            lower_long = float(input())
+            print("Input Upper Longitude:")
+            upper_long = float(input())
 
             # check input
             if __check_input(lower_lat, "float") == False or __check_input(upper_lat, "float") == False or \
@@ -116,20 +127,23 @@ def main():
                 # execute code and get both relations range
                 operator.get_coords_range_union(lower_lat,\
                 upper_lat, lower_long,upper_long)
-                print("code")
+                
         
         #this command is used to get all incidents/complaints within a range of dates in database(s) specified by users
         elif cmd == "\\range date":
             correct_input = True
             # get input
-            relation = input("Input which database to select from (ERI, Service Requests, both): ")
+            print("Input which database to select from (ERI, Service Requests, both)")
+            relation = input()
             print("Input Date as MM/DD/YYYY HH:MI:SS AM.")
-            lower_date = input("Input first date(oldest): ")
-            upper_date = input("input second date(recent): ")
+            print("Input first date(oldest):")
+            lower_date = input()
+            print("input second date(recent):")
+            upper_date = input()
 
             # check input
             if __check_input(lower_date, "date") == False or __check_input(upper_date, "date") == False or \
-                    __check_input(relation, "relation"):
+                    __check_input(relation, "relation")==False:
                 correct_input = False
             if __compare_date(upper_date, lower_date) == False:
                 print("ERROR: Date bounds have negative distance")
@@ -142,15 +156,18 @@ def main():
                     operator.get_date_range_one(relation,lower_date,upper_date)
                 else:
                     operator.get_date_range_union(lower_date,upper_date)
-                print("code")
                 
+          
+          
         #this command is used to get all incidents/complaints within a range of dates in the two datasets ERI and ServiceRequests
         elif cmd == "\\range date union":
             correct_input = True
             # get input
             print("Input Date as MM/DD/YYYY HH:MI:SS AM.")
-            lower_date = input("Input first date(oldest): ")
-            upper_date = input("input second date(recent): ")
+            print("Input first date(oldest):")
+            lower_date = input()
+            print("input second date(recent):")
+            upper_date = input()
 
             # check input
             if __check_input(lower_date, "date") == False or __check_input(upper_date, "date") == False:
@@ -163,55 +180,50 @@ def main():
             if correct_input:
                 # execute range date on both relations and extend one of them
                 operator.get_date_range_union(lower_date,upper_date)
-                print("code")
                 
+          
          #this command is used to get all incidents/complaints with specific coordinates in the two datasets ERI and ServiceRequests
         elif cmd == "\\location coordinates":
             correct_input = True
             # get input
-            latitude = input("Input Latitude:")
-            longitude = input("Input Longitude:")
+            print("Input Latitude:")
+            latitude = input()
+            print("Input Longitude:")
+            longitude = input()
 
             # check input
-            if __check_input(latitude, "float") == False:
+            if __check_input(latitude, "float") == False or __check_input(longitude, "float") == False:
                 correct_input = False
-                print("ERROR: Latitude was not a float")
-            if __check_input(longitude, "float") == False:
-                correct_input = False
-                print("ERROR: Longitude was not a float")
 
             # execute map op
             if correct_input:
                 # execute input on both maps
                 operator.get_coords_union_one(latitude,longitude)
-                print("code")
-                
-         #this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
+         
+         
+        #this command is used to get all incidents/complaints in the same borough
+        elif cmd == "\\incidents borough":
+            borough = input("Input borough name:").lower()
+            operator.get_incidents_in_borough(borough)
+            
+            
+        #this command is used to get all incidents/complaints with the same datetime in the two datasets ERI and ServiceRequests
         elif cmd == "\\union date":
             operator.get_same_time()
-            print("code")
             
-         #this command is used to get all incidents and complaints with the same coordinates and date in the two datasets ERI and ServiceRequests
-        elif cmd == "\\union coord_and_date":
-            operator.get_same_time_and_coords()
-            print("code")
             
-         #this command is used to get all incidents/complaints in the same borough
-        elif cmd == "\\incidents borough":
-            borough = input("Input borough name: ").lower()
-            operator.get_incidents_in_borough(borough)
-            print("code")    
-            
+        #this command is used to get the the sum of the grouped up incidents/complaints in both datasets
         elif cmd == "\\incidents sum":
             operator.get_incidents_group_sum()
-            print("code")
             
+            
+        #this command is used to returns the most recent one in each group of incident/complaints in the two datasets
         elif cmd == "\\incidents recent":
             operator.get_incidents_most_recent()
-            print("code")
+            
             
         else:
-            print("ERROR: Input not Valid. Try \"\\help\" for a list of possible commands")
+            print("ERROR: Input not Valid.")
 
 
 if __name__ == "__main__":
