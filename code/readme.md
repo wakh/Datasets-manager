@@ -35,6 +35,8 @@ Finally, run `load_data.py` to load data from `datasets` to your database. This 
 ## Application
 After running `application.py`, you can input any of the given commands to select a query to run (use \help to bring up a list of possible commands).
 
+After successfully inputting, a table and map will popup with your selected query.
+
 ### Function and Usage for Each Command
 `\range coordinates`: this command is used to get all incidents/complaints within a range of coordinates in the database(s) specified by users. 
 Usage: 
