@@ -109,3 +109,5 @@ Queens
 `\incidents sum`: this command is used to get the the sum of the grouped up incidents/complaints in both datasets.
 
 `\incidents recent`: this command is used to returns the most recent one in each group of incident/complaints in the two datasets.
+
+After each functions executed, the result will be shown on a popup window, where left side will be a result table and right side will be the NYC map with makers, indicate where incident happpened and will be clustered, you can zoom in or zoom out for detailed marker and move around the map by drag the map up-down-left-right. The last two functions will only show the result table and an empty map without marker since there's no geo location data in the result.
