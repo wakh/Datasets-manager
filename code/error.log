@@ -114,3 +114,19 @@ Traceback (most recent call last):
   File "pandas\_libs\hashtable_class_helper.pxi", line 1626, in pandas._libs.hashtable.PyObjectHashTable.get_item
 KeyError: 'latitude'
 
+
+[2020-05-07 20:54:05] Traceback (most recent call last):
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 240, in <module>
+    main()
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 103, in main
+    upper_lat, lower_long,upper_long)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\map_operator.py", line 17, in get_coords_range_one
+    app = MainFrame(results)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\mapAPI.py", line 53, in __init__
+    self.map_frame = BrowserFrame(self.paned_window, self.get_map_url(data))
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\mapAPI.py", line 64, in get_map_url
+    if ('latitude' in data.column) or ('longitude' in data.column):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\generic.py", line 5274, in __getattr__
+    return object.__getattribute__(self, name)
+AttributeError: 'DataFrame' object has no attribute 'column'
+

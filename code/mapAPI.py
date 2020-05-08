@@ -61,7 +61,7 @@ class MainFrame(tk.Frame):
         # create empty map zoomed in on NYC
         map = folium.Map(location=[40.738, -73.98], zoom_start=12)
 
-        if ('latitude' in data.index) or ('longitude' in data.index):
+        if ('latitude' in data) or ('longitude' in data):
             # fill nan value
             data["latitude"].fillna(0, inplace=True)
             data["longitude"].fillna(0, inplace=True)
