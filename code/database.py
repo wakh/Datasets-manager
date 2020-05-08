@@ -209,15 +209,15 @@ class SqlOperator:
     # returns the the sum of the grouped up incidents
     # returns with tuples in the form of (complaint_type, count(complaint_type))
     def get_incidents_group_sum(self):
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT incident, COUNT(incident) FROM ERI GROUP BY incident"
-        " UNION SELECT complaint_type, COUNT(complaint_type) FROM ServiceRequests GROUP BY complaint_type")
-        return cursor.fetchall()
+        sql = "SELECT incident, COUNT(incident) FROM ERI GROUP BY incident"\
+              " UNION SELECT complaint_type AS incident, COUNT(complaint_type)"\
+              " FROM ServiceRequests GROUP BY complaint_type"
+        return pd.read_sql(sql, self.conn)
 
     # returns the most recent of each incident
     # returns with tuples in the form of (complaint_type, max(creation_date))
     def get_incidents_most_recent(self):
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT incident, MAX(creation_date) FROM ERI GROUP BY incident"
-        " UNION SELECT complaint_type, MAX(creation_date) FROM ServiceRequests GROUP BY complaint_type")
-        return cursor.fetchall()
+        sql = "SELECT incident, MAX(creation_date) FROM ERI GROUP BY incident"\
+              " UNION SELECT complaint_type AS incident, MAX(creation_date)"\
+              " FROM ServiceRequests GROUP BY complaint_type"
+        return pd.read_sql(sql, self.conn)

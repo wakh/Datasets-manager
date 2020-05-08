@@ -61,14 +61,15 @@ class MainFrame(tk.Frame):
         # create empty map zoomed in on NYC
         map = folium.Map(location=[40.738, -73.98], zoom_start=12)
 
-        # fill nan value
-        data["latitude"].fillna(0, inplace=True)
-        data["longitude"].fillna(0, inplace=True)
+        if ('latitude' in data.index) or ('longitude' in data.index):
+            # fill nan value
+            data["latitude"].fillna(0, inplace=True)
+            data["longitude"].fillna(0, inplace=True)
 
-        # add a marker for every record in the filtered data, use a clustered view
-        mc = MarkerCluster().add_to(map)
-        for each in data[0:MAXROWS].iterrows():
-            folium.Marker(location=[each[1]['latitude'], each[1]['longitude']]).add_to(mc)
+            # add a marker for every record in the filtered data, use a clustered view
+            mc = MarkerCluster().add_to(map)
+            for each in data[0:MAXROWS].iterrows():
+                folium.Marker(location=[each[1]['latitude'], each[1]['longitude']]).add_to(mc)
 
         return map.get_root().render()
 

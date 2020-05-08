@@ -81,3 +81,36 @@ NameError: name 'tk' is not defined
     date1_nums = [int(date1[0] + date1[1]), int(date1[3] + date1[4]), int(date1[6] + date1[7] + date1[8] + date1[9]),
 ValueError: invalid literal for int() with base 10: 'ds'
 
+
+[2020-05-07 20:39:19] Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\indexes\base.py", line 2646, in get_loc
+    return self._engine.get_loc(key)
+  File "pandas\_libs\index.pyx", line 111, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 138, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 1618, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 1626, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'latitude'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 240, in <module>
+    main()
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 225, in main
+    operator.get_incidents_group_sum()
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\map_operator.py", line 106, in get_incidents_group_sum
+    app = MainFrame(results)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\mapAPI.py", line 53, in __init__
+    self.map_frame = BrowserFrame(self.paned_window, self.get_map_url(data))
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\mapAPI.py", line 65, in get_map_url
+    data["latitude"].fillna(0, inplace=True)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\frame.py", line 2800, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\indexes\base.py", line 2648, in get_loc
+    return self._engine.get_loc(self._maybe_cast_indexer(key))
+  File "pandas\_libs\index.pyx", line 111, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 138, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 1618, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 1626, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'latitude'
+
