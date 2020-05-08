@@ -1,0 +1,83 @@
+
+[2020-05-07 19:30:10] Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\sql.py", line 1586, in execute
+    cur.execute(*args, **kwargs)
+psycopg2.errors.InvalidDatetimeFormat: hour "0" is invalid for the 12-hour clock
+HINT:  Use the 24-hour clock, or give an hour between 1 and 12.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File ".\application.py", line 230, in <module>
+    main()
+  File ".\application.py", line 156, in main
+    operator.get_date_range_one(relation,lower_date,upper_date)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\map_operator.py", line 27, in get_date_range_one
+    results = self.operator.get_date_range_one(relation, lower_date, upper_date)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\database.py", line 113, in get_date_range_one
+    return pd.read_sql(sql, self.conn)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\sql.py", line 412, in read_sql
+    chunksize=chunksize,
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\sql.py", line 1633, in read_query
+    cursor = self.execute(*args)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\sql.py", line 1598, in execute
+    raise ex from exc
+pandas.io.sql.DatabaseError: Execution failed on sql 'SELECT * FROM ERI WHERE creation_date >= to_timestamp('01/01/2010 00:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM') AND creation_date < to_timestamp('01/01/2011 00:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM')': hour "0" is invalid for the 12-hour clock
+HINT:  Use the 24-hour clock, or give an hour between 1 and 12.
+
+
+
+[2020-05-07 20:01:02] Traceback (most recent call last):
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 241, in <module>
+    main()
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 157, in main
+    if __compare_date(upper_date, lower_date) == False:
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 16, in __compare_date
+    int(date1[11] + date1[12]), int(date1[14] + date1[15]), int(date1[17] + date1[18])]
+IndexError: string index out of range
+
+
+[2020-05-07 20:02:21] Traceback (most recent call last):
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 241, in <module>
+    main()
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 165, in main
+    operator.get_date_range_one(relation,lower_date,upper_date)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\map_operator.py", line 30, in get_date_range_one
+    app = MainFrame(self.root, results)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\mapAPI.py", line 33, in __init__
+    root.geometry("1200x500")
+  File "C:\ProgramData\Anaconda3\lib\tkinter\__init__.py", line 1841, in wm_geometry
+    return self.tk.call('wm', 'geometry', self._w, newGeometry)
+_tkinter.TclError: can't invoke "wm" command: application has been destroyed
+
+
+[2020-05-07 20:06:32] Traceback (most recent call last):
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 240, in <module>
+    main()
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 156, in main
+    if __compare_date(upper_date, lower_date) == False:
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 15, in __compare_date
+    date1_nums = [int(date1[0] + date1[1]), int(date1[3] + date1[4]), int(date1[6] + date1[7] + date1[8] + date1[9]),
+IndexError: string index out of range
+
+
+[2020-05-07 20:07:04] Traceback (most recent call last):
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 240, in <module>
+    main()
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 164, in main
+    operator.get_date_range_one(relation,lower_date,upper_date)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\map_operator.py", line 30, in get_date_range_one
+    root = tk.Tk()
+NameError: name 'tk' is not defined
+
+
+[2020-05-07 20:10:18] Traceback (most recent call last):
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 240, in <module>
+    main()
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 156, in main
+    if __compare_date(upper_date, lower_date) == False:
+  File "C:/Users/Paoza/Documents/Datasets-manager/code/application.py", line 15, in __compare_date
+    date1_nums = [int(date1[0] + date1[1]), int(date1[3] + date1[4]), int(date1[6] + date1[7] + date1[8] + date1[9]),
+ValueError: invalid literal for int() with base 10: 'ds'
+

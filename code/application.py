@@ -1,5 +1,11 @@
 from map_operator import MapOperator
 from database import SqlOperator
+from cefpython3 import cefpython as cef
+try:
+    import tkinter as tk
+except ImportError:
+    import Tkinter as tk
+import sys
 
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
 
@@ -39,6 +45,8 @@ def __check_input(string, type):
 
 
 def main():
+    sys.excepthook = cef.ExceptHook  # To shutdown all CEF processes on error
+    cef.Initialize()
     print("Welcome to the 311 Service Requests and Emergency Response Incident Map for New York City")
     print("For a list of commands input the command \\help")
     print("To quit the program input the command \\q")
@@ -224,6 +232,8 @@ def main():
             
         else:
             print("ERROR: Input not Valid.")
+    app.mainloop()
+    cef.Shutdown()
 
 
 if __name__ == "__main__":

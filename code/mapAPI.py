@@ -4,7 +4,6 @@ try:
 except ImportError:
     import Tkinter as tk
 import platform
-import sys
 import pandas
 import folium
 from folium.plugins import MarkerCluster
@@ -21,18 +20,10 @@ MAC = (platform.system() == "Darwin")
 MAXROWS = 1000  # Limit rows for performance
 
 
-def mapFunc(dataframe):
-    sys.excepthook = cef.ExceptHook  # To shutdown all CEF processes on error
-    root = tk.Tk()
-    app = MainFrame(root, dataframe)
-    cef.Initialize()
-    app.mainloop()
-    cef.Shutdown()
-
-
 class MainFrame(tk.Frame):
 
-    def __init__(self, root, data):
+    def __init__(self, data):
+        self.root = tk.Tk()
         self.result_frame = None
         self.map_frame = None
         self.button1 = None
@@ -40,10 +31,10 @@ class MainFrame(tk.Frame):
         self.map = None
 
         # Root
-        root.geometry("1200x500")
+        self.root.geometry("1200x500")
 
         # MainFrame
-        tk.Frame.__init__(self, root)
+        tk.Frame.__init__(self, self.root)
         self.master.title("Datasets Manager")
         self.master.protocol("WM_DELETE_WINDOW", self.on_close)
         self.master.bind("<Configure>", self.on_configure)
