@@ -130,3 +130,25 @@ KeyError: 'latitude'
     return object.__getattribute__(self, name)
 AttributeError: 'DataFrame' object has no attribute 'column'
 
+
+[2020-05-07 21:07:07] Traceback (most recent call last):
+  File ".\application.py", line 240, in <module>
+    main()
+  File ".\application.py", line 164, in main
+    operator.get_date_range_one(relation,lower_date,upper_date)
+  File "C:\Users\Paoza\Documents\Datasets-manager\code\map_operator.py", line 27, in get_date_range_one
+    app.mainloop()
+  File "C:\ProgramData\Anaconda3\lib\tkinter\__init__.py", line 1283, in mainloop
+    self.tk.mainloop(n)
+  File "C:\ProgramData\Anaconda3\lib\tkinter\__init__.py", line 1700, in __call__
+    def __call__(self, *args):
+KeyboardInterrupt
+
+
+[2020-05-07 21:07:14] Traceback (most recent call last):
+  File ".\application.py", line 240, in <module>
+    main()
+  File ".\application.py", line 235, in main
+    app.mainloop()
+NameError: name 'app' is not defined
+

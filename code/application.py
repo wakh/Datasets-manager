@@ -232,7 +232,6 @@ def main():
             
         else:
             print("ERROR: Input not Valid.")
-    app.mainloop()
     cef.Shutdown()
 
 
